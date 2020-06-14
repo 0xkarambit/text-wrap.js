@@ -20,10 +20,8 @@ program
 (async function main() {
 	// main program flow
 	const limit = program.limit ? program.limit : 80;
-	const delimiter = program.delimiter ? program.delimiter : '\n';
+	const delimiter = (program.delimiter) ? (program.delimiter) : '\n';
 	const text = program.text ? program.text : await getText("enter text> ");
-
-	// log(text);
 	const result = fmt.prettyPaste(text, limit, delimiter);
 	log(result)
 })()
