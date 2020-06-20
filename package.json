@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "node src/format.js"
   },
   "keywords": [],
   "author": "Harshit Joshi",
   "license": "MIT",
   "description": "",
   "dependencies": {
+    "clipboardy": "^2.3.0",
     "commander": "^5.1.0"
   }
 }
