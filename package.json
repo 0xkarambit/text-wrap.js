@@ -10,6 +10,9 @@
   "author": "Harshit Joshi",
   "license": "MIT",
   "description": "",
+  "bin": {
+    "wrap": "./src/index.js"
+  },
   "dependencies": {
     "clipboardy": "^2.3.0",
     "commander": "^5.1.0"
