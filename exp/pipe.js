@@ -4,16 +4,25 @@ process.stdin.resume();
 process.stdin.setEncoding("utf8");
 
 let File = "";
+let chunk;
+let arr = [];
 
-process.stdin.on("data", function (data) {
-	// process.stdout.write(data);
-	File += data;
-	// console.log(`\n\x1b[94m${data}\x1b[0m\n`);
+process.stdin.on("readable", () => {
+	if ((chunk = process.stdin.read()) !== null) {
+		File += chunk;
+		arr.push({ chunk, size: chunk.length });
+	}
+	// process.stdout.write(`[${process.stdin.read()}]`);
 });
 
 process.stdin.on("end", function (data) {
 	// process.stdout.write("end");
-	process.stdout.write(File);
+	// process.stdout.write(File);
+	console.log("\n\n");
+	process.stdout.write(arr.length.toString() + "\n");
+	for (let i in arr) {
+		console.log(arr[i].size);
+	}
 });
 
 process.on("SIGINT", function () {

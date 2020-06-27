@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const { program } = require("commander");
 const { write: copy } = require("clipboardy");
+const stream = require("stream");
 
 const fmt = require("./format");
 const { getText } = require("./input.js");
@@ -31,11 +32,16 @@ program
 
 	const result = fmt[method](text, limit, delimiter);
 
-	process.stdout.write("\n" + result);
+	const readStream = stream.Readable.from(result);
+	readStream.on("end", () => {
+		process.exit(0);
+	});
+	readStream.pipe(process.stdout);
+	// process.stdout.write("\n" + result);
 
 	program.copy ? await copy(result) : null;
 	// program.write ? writeFile(program.write) : null;
-	process.exit(0);
+	// process.exit(0);
 })();
 
 function processDelimiter(str = "") {

@@ -1,0 +1,75 @@
+writing on 6/28/2020 12:49 am
+
+I have learnt a lot of things from this project.
+
+about making terminal apps.
+
+about performance, open-source, github, best practices etc
+
+about stdin and stdout, unix piping, nodejs modules (path, url, stream, fs)
+
+about maintaining clean code base.
+
+about Stream, {exec} in child_process, util, promises, async-await, the event loop, iterators and generators. 
+
+eg
+		process.stdin.on("readable", function () {
+			if ((chunk = process.stdin.read()) !== null) data += chunk;
+		});
+from
+	input-output.js
+
+and,
+		function* gen() {
+			for (let i = 0; i < Infinity; ++i) {
+				yield i;
+			}
+		}
+and,
+		Streams
+
+		readable
+			data
+			readable
+			end ()readable vs close ()writable
+			error
+
+			.read()
+			.end()
+			.pipe()
+			.pause()
+			.resume()
+			.readable
+			.readableHighWaterMark
+and,
+
+	read file line by line
+	
+		var readline = require('readline');
+		var rl = readline.createInterface({
+			input: process.stdin,
+			output: process.stdout,
+			terminal: false
+		});
+
+		rl.on('line', function(line){
+			console.log(line);
+		})
+and,
+	if you call any code that creates a file without passing in an absolute path,
+	nodejs will create the file in the directory in which the script has been called in
+	ie process.cwd().
+
+
+
+
+
+
+
+current topics to comprehend
+
+readableHighWaterMark -> 0 ? (or any other int).
+backpressure.
+	https://nodejs.org/ja/docs/guides/backpressuring-in-streams/
+	https://nodejs.org/api/stream.html#stream_event_drain
+duplex and transform streams.
