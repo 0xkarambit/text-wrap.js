@@ -9,7 +9,9 @@ function write(file, data) {
 	// console.log(file);
 	fs.writeFileSync(file, data, { encoding: "utf8" });
 }
-// add file writing remove input test requiredOption ()extend input.js and add config support
+// todo add file writing remove input test requiredOption ()extend input.js and add config support
 // support adding delimiter and remove color from printing, refactoring, take the arg vars outof
 // async function
+// also add config feature for user to choose his default options.
+// also linux piping support would be nice.
 // should we make a different branch with config functionality
