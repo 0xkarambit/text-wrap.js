@@ -35,7 +35,7 @@ and,
 			error
 
 			.read()
-			.end()
+			-- .end()
 			.pipe()
 			.pause()
 			.resume()

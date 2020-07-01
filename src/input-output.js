@@ -38,6 +38,9 @@
 
 function getStandardInputStream() {
 	return new Promise((resolve, reject) => {
+		if (process.stdin.isTTY) {
+			return undefined;
+		}
 		process.stdin.resume();
 		process.stdin.setEncoding("utf8");
 

@@ -4,8 +4,9 @@ const { write: copy } = require("clipboardy");
 const stream = require("stream");
 
 const fmt = require("./format");
-const { getText } = require("./input.js");
+// const { getText } = require("./input.js");
 const { getStandardInputStream } = require("./input-output.js");
+const { isUndefined } = require("util");
 
 const log = console.log;
 
@@ -22,6 +23,7 @@ program
 
 	.option("-w, --write <file>", "write formated text to <file>") // only 1 of these 2
 	.option("-a, --append <file>", "append formated text to <file>") // only 1 of these 2
+	.option("-n, --nooutput", "disables stdout")
 	.parse(process.argv);
 
 (async function main() {
@@ -30,16 +32,26 @@ program
 	const method = program.force ? "newfmt" : "prettyPasteV2";
 	const text = program.text || (await getStandardInputStream());
 
+	if (isUndefined(text)) return 1;
+
+	// check if text is a stream if so use the (nonexistant) transform stream and pipe to stdout.
+	// else use function ?
+	// todo perform memory check with the ./exp/chunk_size_test folder.
+
 	const result = fmt[method](text, limit, delimiter);
 
-	const readStream = stream.Readable.from(result);
-	readStream.on("end", () => {
-		process.exit(0);
-	});
-	readStream.pipe(process.stdout);
-	// process.stdout.write("\n" + result);
+	// const readStream = stream.Readable.from(result);
+	// readStream.on("end", () => {
+	// 	// program.copy ? await copy(result) : null;
+	// 	process.exit(0);
+	// });
+	// readStream.pipe(process.stdout);
+	if (!program.nooutput) process.stdout.write("\n" + result);
 
 	program.copy ? await copy(result) : null;
+	// ! oh crap newline is copied along with it if the input has newline as ending.
+	/* IF FLAG TRUE then if result.endsWith('\n') then result.trim() end end*/
+	console.log("i run");
 	// program.write ? writeFile(program.write) : null;
 	// process.exit(0);
 })();

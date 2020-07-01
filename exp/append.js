@@ -2,8 +2,8 @@ const fs = require("fs");
 const { exec } = require("child_process");
 const stream = require("stream");
 
-const fileName = "new.txt";
-const data = "lolololololololol\n";
+const fileName = "chunks.txt" || "new.txt";
+const data = "lolololololololol" || "lolololololololol\n";
 
 // const rStream = fs.createReadStream("read.txt");
 const wStream = fs.createWriteStream(fileName, { flags: "a" });
@@ -28,7 +28,8 @@ const wStream = fs.createWriteStream(fileName, { flags: "a" });
 // file size = 18 ($ data.length) * 1024 (bytes) * 2 (multiplier) = 36 bytes.
 
 for (let i = 0; i < 1024 * 2; ++i) {
-	wStream.write(data);
+	// wStream.write(data);
+	wStream.write("a".repeat(64)); // total should be 128 kb = 1024 * 128
 }
 wStream.on("close", () => {
 	console.log("done");
@@ -55,3 +56,14 @@ wStream.end();
 // maybe its different for stdin ? huh
 
 // foot notes: reading code in pipe.js and writing code in append.js.
+
+/*
+CHUNK TEXTING CODE FOR PIPE.JS
+process.stdin.on('readable', () => {
+    let chunk;
+    while ((chunk = process.stdin.read()) !== null) {
+        process.stdout.write('we have a chunk: \n');
+        console.log(chunk.length);
+        process.stdout.write(chunk);
+    }
+}); */
