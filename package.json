@@ -1,17 +1,18 @@
 {
-  "name": "text-wrap",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "node src/index.js",
-    "test": "node src/format.js"
-  },
-  "keywords": [],
-  "author": "Harshit Joshi",
-  "license": "MIT",
-  "description": "",
-  "dependencies": {
-    "clipboardy": "^2.3.0",
-    "commander": "^5.1.0"
-  }
+	"name": "text-wrap",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"start": "node src/index.js"
+	},
+	"keywords": [],
+	"author": "Harshit Joshi",
+	"license": "MIT",
+	"description": "cli app to format long lines of text without newlines",
+	"bin": {
+		"wrap": "./src/index.js"
+	},
+	"dependencies": {
+		"commander": "^5.1.0"
+	}
 }
