@@ -72,7 +72,7 @@ if (require.main == module) {
 // prettyPaste: 0.141ms
 
 module.exports = {
-	prettyPaste,
+	// prettyPaste,
 	newfmt,
 	prettyPasteV2,
 };

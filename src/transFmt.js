@@ -41,27 +41,5 @@ if (require.main == module) {
 // memory usage, etc
 // why cant i use async generators in place of streams in pipeline function
 function TEST(input) {
-	const result = prettyPasteV2(input);
-
-	function prettyPasteV2(string, limit = 80, delimiter = "\n") {
-		let template;
-		if (string.length > limit) {
-			let breakIndex = string.substring(0, limit).lastIndexOf(" ");
-			if (breakIndex == -1) {
-				breakIndex = limit - 1; // 0 - 79 = 80 chars (limit)
-				template =
-					string.substring(0, breakIndex) +
-					delimiter +
-					prettyPasteV2(string.substring(breakIndex), limit, delimiter);
-			} else {
-				template =
-					string.substring(0, breakIndex) +
-					delimiter +
-					prettyPasteV2(string.substring(breakIndex + 1), limit, delimiter);
-			}
-		}
-		return (template = template || string);
-	}
-
-	console.log(result);
+	console.log(prettyPasteV2(input));
 }
