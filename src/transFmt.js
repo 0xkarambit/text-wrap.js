@@ -1,28 +1,32 @@
 const { Transform, pipeline } = require("stream");
-const { stdin, stdout, stderr } = require("process");
+// const { stdin, stdout, stderr } = require("process");
 const { prettyPasteV2 } = require(__dirname + "/format.js");
-const chunkBasket = [];
+// const chunkBasket = [];
 
-const fmt = new Transform({
+const fmtStream = new Transform({
 	transform(chunk /*Buffer*/, encoding, callback) {
-		// chunkBasket.push(chunk.toString());
 		const out = prettyPasteV2(chunk.toString());
 		this.push(out);
 		callback();
 	},
 });
 
-// fmt.on("finish", () => {
+// fmtStream.on("finish", () => {
 // 	// fired when all data has been sent/written to stdout
-// 	// console.log("\x1b[91mDONE\x1b[0m");
-// 	// console.log("\n\n\n\n");
+// 	console.log("\x1b[91mDONE\x1b[0m");
+// 	console.log("\n\n\n\n");
+// 	console.log(chunkBasket.length);
+// 	for (let i in chunkBasket) {
+// 		console.log(i, chunkBasket[i].length);
+// 	}
+// 	// ya we good
 // 	// TEST(chunkBasket[0]);
 // });
 
 if (require.main == module) {
 	// stdin.pipe(fmt).pipe(stdout);
 
-	pipeline(stdin, fmt, stdout, (err) => {
+	pipeline(stdin, fmtStream, stdout, (err) => {
 		if (err) {
 			stderr.write(err);
 		} else {
@@ -30,7 +34,7 @@ if (require.main == module) {
 		}
 	});
 } else {
-	module.exports = fmt;
+	module.exports = fmtStream;
 }
 
 // now i just have to test my current function to see if it can handle the load of a 128kb input
