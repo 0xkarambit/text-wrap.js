@@ -41,13 +41,28 @@ if (require.main == module) {
 	// 	}
 	// }); // now this is working. (after adding callback)
 
-	// stdin.pipe(trans).pipe(stdout);
 	stdin
 		.pipe(trans)
-		.on("end", () => {
-			console.log("wowo");
+		.on("finish", () => {
+			console.log("\nfinished!");
+			console.log(chunksList.length);
+			for (const i in chunksList) {
+				if (chunksList.hasOwnProperty(i)) {
+					const chunk = chunksList[i];
+					console.log(i, chunk.length);
+				}
+			}
 		})
 		.pipe(stdout);
+	// .end();
+
+	// WORKING on TRANSFORM STREAM
+	// stdin
+	// 	.pipe(trans)
+	// 	.on("end", () => {
+	// 		console.log("wowo");
+	// 	})
+	// 	.pipe(stdout);
 
 	// NOT WORKING
 	// stdout.on("finish", () => {

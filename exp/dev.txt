@@ -29,13 +29,16 @@ and,
 		Streams
 
 		readable
+			*event*
 			data
 			readable
-			end ()readable vs close ()writable
+			end (readable) vs close | finish (writable)
+			close
 			error
 
+			*methods and props*
 			.read()
-			-- .end()
+			-- .end() only for writable
 			.pipe()
 			.pause()
 			.resume()
